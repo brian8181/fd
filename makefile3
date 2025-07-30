@@ -10,9 +10,9 @@ LEX=flex
 BISONFLAGS= -y -d --html --graph
 CXXFLAGS=-Wall -std=c++17 -fPIC
 CCFLAGS=
-SRC=src
-BLD?=build
-OBJ?=build
+SRC=src3
+BLD?=build3
+OBJ?=build3
 
 # lib settings
 LIBS=-L/usr/lib -L/usr/lib64 -L/usr/local/lib -L/usr/local/lib64
