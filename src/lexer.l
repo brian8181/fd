@@ -45,6 +45,11 @@ id      [a-zA-Z_][a-zA-Z0-9_]*
 "volatile"  { yylval.str = strdup(yytext); return VOLATILE; }
 "register"  { yylval.str = strdup(yytext); return REGISTER; }
 "restrict"  { yylval.str = strdup(yytext); return RESTRICT; }
+"#include"  { yylval.str = strdup(yytext); return INCLUDE; }
+"#define"   { yylval.str = strdup(yytext); return DEFINE; }
+"#ifdef"    { yylval.str = strdup(yytext); return IFDEF; }
+"#ifndef"   { yylval.str = strdup(yytext); return IFNDEF; }
+"#endif"    { yylval.str = strdup(yytext); return ENDIF; }
 "="         { return '='; }
 ";"         { return ';'; }
 "+"         { return '+'; }
@@ -82,7 +87,7 @@ id      [a-zA-Z_][a-zA-Z0-9_]*
 "||"        { yylval.str = strdup(yytext); return LOGICAL_OR; }
 "<<"        { yylval.str = strdup(yytext); return LSHIFT_OPERATOR; }
 ">>"        { yylval.str = strdup(yytext); return RSHIFT_OPERATOR; }
-"++"       { yylval.str = strdup(yytext); return INCREMENT_OPERATOR; }
+"++"        { yylval.str = strdup(yytext); return INCREMENT_OPERATOR; }
 "--"        { yylval.str = strdup(yytext); return DECREMENT_OPERATOR; }
 "+="        { yylval.str = strdup(yytext); return ADD_ASSIGN_OPERATOR; }
 "-="        { yylval.str = strdup(yytext); return SUB_ASSIGN_OPERATOR; }
@@ -93,8 +98,8 @@ id      [a-zA-Z_][a-zA-Z0-9_]*
 "|="        { yylval.str = strdup(yytext); return BITOR_ASSIGN_OPERATOR; }
 "^="        { yylval.str = strdup(yytext); return BITXOR_ASSIGN_OPERATOR; }
 "~="        { yylval.str = strdup(yytext); return BITNOT_ASSIGN_OPERATOR; }
-"<<="        { yylval.str = strdup(yytext); return LSHIFT_ASSIGN_OPERATOR; }
-">>="        { yylval.str = strdup(yytext); return RSHIFT_ASSIGN_OPERATOR; }
+"<<="       { yylval.str = strdup(yytext); return LSHIFT_ASSIGN_OPERATOR; }
+">>="       { yylval.str = strdup(yytext); return RSHIFT_ASSIGN_OPERATOR; }
 __{id}      { yylval.str = strdup(yytext); return ARG; }
 {id}        { yylval.str = strdup(yytext); return ID; }
 {digit}+    { yylval.str = strdup(yytext); return NUMBER; }
