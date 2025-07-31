@@ -13,7 +13,10 @@ void yyerror(const char *msg);
     char* str;
 }
 
+%token <str> INCLUDE DEFINE IFDEF IFNDEF ENDIF PRAGMA
+%token <str> USING NAMESPACE
 %token <str> INT FLOAT CHAR VOID
+%token <str> CLASS STRUCT TEMPLATE TYPENAME
 %token <str> REFERENCE POINTER
 %token <str> NUMBER
 %token <str> ID
@@ -32,6 +35,10 @@ void yyerror(const char *msg);
 %token <str> DIRECT_TO_POINTER INDIRECT_TO_POINTER
 %token <str> DIRECT_MEMBER_SELECT INDIRECT_MEMBER_SELECT
 %token <str> IF ELSE FOR DO WHILE CONTINUE BREAK SWITCH CASE GOTO DEFAULT RETURN
+%token <str> LSHIFT_OPERATOR RSHIFT_OPERATOR INCREMENT_OPERATOR DECREMENT_OPERATOR
+%token <str> ADD_ASSIGN_OPERATOR SUB_ASSIGN_OPERATOR MULT_ASSIGN_OPERATOR DIV_ASSIGN_OPERATOR MOD_ASSIGN_OPERATOR
+%token <str> BITAND_ASSIGN_OPERATOR BITOR_ASSIGN_OPERATOR BITXOR_ASSIGN_OPERATOR BITNOT_ASSIGN_OPERATOR
+%token <str> LSHIFT_ASSIGN_OPERATOR RSHIFT_ASSIGN_OPERATOR
 %type <str> files
 %type <str> file
 %type <str> function
@@ -50,6 +57,7 @@ void yyerror(const char *msg);
 %type <str> numeric_expr
 %type <str> expr
 %type <str> statement
+%type <str> preprocess
 %start program
 
 %%
@@ -140,6 +148,10 @@ type:
     | VOID                              { printf("type: VOID\n"); }
     | type REFERENCE                    { printf("type: type REFERENCE\n"); }
     | type POINTER                      { printf("type: type POINTER\n"); }
+    | CLASS
+    | STRUCT
+    | TEMPLATE
+    | TYPENAME
     ;
 flow_control:
     FOR
@@ -196,6 +208,21 @@ operator:
     | AT_SYMBOL
     | ADDRESS_OF
     | SCOPE_RESOLUTION
+    | LSHIFT_OPERATOR
+    | RSHIFT_OPERATOR
+    | INCREMENT_OPERATOR
+    | DECREMENT_OPERATOR
+    | ADD_ASSIGN_OPERATOR
+    | SUB_ASSIGN_OPERATOR
+    | MULT_ASSIGN_OPERATOR
+    | DIV_ASSIGN_OPERATOR
+    | MOD_ASSIGN_OPERATOR
+    | BITAND_ASSIGN_OPERATOR
+    | BITOR_ASSIGN_OPERATOR
+    | BITXOR_ASSIGN_OPERATOR
+    | BITNOT_ASSIGN_OPERATOR
+    | LSHIFT_ASSIGN_OPERATOR
+    | RSHIFT_ASSIGN_OPERATOR
     ;
 member_select:
     DIRECT_MEMBER_SELECT
@@ -205,7 +232,18 @@ pointer_to_member:
     INDIRECT_TO_POINTER
     | DIRECT_TO_POINTER
     ;
-
+scope_resolution:
+    USING
+    | NAMESPACE
+    ;
+preprocess:
+    INCLUDE
+    | DEFINE
+    | IFDEF
+    | IFNDEF
+    | ENDIF
+    | PRAGMA
+    ;
 %%
 
 void yyerror(const char *msg)

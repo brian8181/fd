@@ -45,10 +45,6 @@ id      [a-zA-Z_][a-zA-Z0-9_]*
 "volatile"  { yylval.str = strdup(yytext); return VOLATILE; }
 "register"  { yylval.str = strdup(yytext); return REGISTER; }
 "restrict"  { yylval.str = strdup(yytext); return RESTRICT; }
-"!"         { yylval.str = strdup(yytext); return LOGICAL_NOT; }
-"=="        { yylval.str = strdup(yytext); return EQUALS; }
-"&&"        { yylval.str = strdup(yytext); return LOGICAL_AND; }
-"||"        { yylval.str = strdup(yytext); return LOGICAL_OR; }
 "="         { return '='; }
 ";"         { return ';'; }
 "+"         { return '+'; }
@@ -80,6 +76,25 @@ id      [a-zA-Z_][a-zA-Z0-9_]*
 "->"        { yylval.str = strdup(yytext); return INDIRECT_MEMBER_SELECT; }
 ".*"        { yylval.str = strdup(yytext); return INDIRECT_TO_POINTER; }
 "->*"       { yylval.str = strdup(yytext); return DIRECT_TO_POINTER; }
+"!"         { yylval.str = strdup(yytext); return LOGICAL_NOT; }
+"=="        { yylval.str = strdup(yytext); return EQUALS; }
+"&&"        { yylval.str = strdup(yytext); return LOGICAL_AND; }
+"||"        { yylval.str = strdup(yytext); return LOGICAL_OR; }
+"<<"        { yylval.str = strdup(yytext); return LSHIFT_OPERATOR; }
+">>"        { yylval.str = strdup(yytext); return RSHIFT_OPERATOR; }
+"++"       { yylval.str = strdup(yytext); return INCREMENT_OPERATOR; }
+"--"        { yylval.str = strdup(yytext); return DECREMENT_OPERATOR; }
+"+="        { yylval.str = strdup(yytext); return ADD_ASSIGN_OPERATOR; }
+"-="        { yylval.str = strdup(yytext); return SUB_ASSIGN_OPERATOR; }
+"*="        { yylval.str = strdup(yytext); return MULT_ASSIGN_OPERATOR; }
+"/="        { yylval.str = strdup(yytext); return DIV_ASSIGN_OPERATOR; }
+"&="        { yylval.str = strdup(yytext); return BITAND_ASSIGN_OPERATOR; }
+"%="        { yylval.str = strdup(yytext); return MOD_ASSIGN_OPERATOR; }
+"|="        { yylval.str = strdup(yytext); return BITOR_ASSIGN_OPERATOR; }
+"^="        { yylval.str = strdup(yytext); return BITXOR_ASSIGN_OPERATOR; }
+"~="        { yylval.str = strdup(yytext); return BITNOT_ASSIGN_OPERATOR; }
+"<<="        { yylval.str = strdup(yytext); return LSHIFT_ASSIGN_OPERATOR; }
+">>="        { yylval.str = strdup(yytext); return RSHIFT_ASSIGN_OPERATOR; }
 __{id}      { yylval.str = strdup(yytext); return ARG; }
 {id}        { yylval.str = strdup(yytext); return ID; }
 {digit}+    { yylval.str = strdup(yytext); return NUMBER; }
