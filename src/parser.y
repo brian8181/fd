@@ -67,7 +67,7 @@ program:
     files                               { printf("program: files\n"); }
     ;
 files:
-    file                                { printf("files: file\n"); }
+    file END_OF_FILE                    { printf("files: END_OF_FILE\n"); }
     | files file                        { printf("files: files file\n"); }
     ;
 file:

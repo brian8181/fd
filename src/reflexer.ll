@@ -1,61 +1,122 @@
 %{
+
+//      The basic source character set consists of 96 characters:
+//      the space character, the control characters representing horizontal tab,
+//      vertical tab, form feed, and new-line, plus the following 91 graphical characters
+//
+//      a b c d e f g h i j k l m n o p q r s t u v w x y z
+//      A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+//      0 1 2 3 4 5 6 7 8 9
+//      _ { } [ ] # ( ) < > % : ; . ? * + - / ˆ & | ˜ ! = , \ " ’
+
 #include "parser.tab.h"
 #include <string.h>
+
 %}
 
 digit   [0-9]
 id      [a-zA-Z_][a-zA-Z0-9_]*
+escape  [/]
 
 %%
 
-"int"       { return INT; }
-"float"     { return FLOAT; }
+"int"       { yylval.str = strdup(yytext); return INT; }
+"float"     { yylval.str = strdup(yytext); return FLOAT; }
+"char"      { yylval.str = strdup(yytext); return CHAR; }
 "return"    { return RETURN; }
-
-{id}        { yylval.str = strdup(yytext); return ID; }
-{digit}+    { yylval.num = atoi(yytext); return NUMBER; }
-
+"if"        { return IF; }
+"else"      { return ELSE; }
+"do"        { return DO; }
+"while"     { return WHILE; }
+"for"       { return FOR; }
+"continue"  { return CONTINUE; }
+"switch"    { return SWITCH; }
+"case"      { return CASE; }
+"break"     { return BREAK; }
+"goto"      { return GOTO; }
+"default"   { return DEFAULT; }
+"void"      { return VOID; }
+"private"   { yylval.str = strdup(yytext); return PRIVATE; }
+"protected" { yylval.str = strdup(yytext); return PROTECTED; }
+"public"    { yylval.str = strdup(yytext); return PUBLIC; }
+"inline"    { yylval.str = strdup(yytext); return INLINE; }
+"static"    { yylval.str = strdup(yytext); return STATIC; }
+"const"     { yylval.str = strdup(yytext); return CONST; }
+"unsigned"  { yylval.str = strdup(yytext); return UNSIGNED; }
+"volatile"  { yylval.str = strdup(yytext); return VOLATILE; }
+"register"  { yylval.str = strdup(yytext); return REGISTER; }
+"restrict"  { yylval.str = strdup(yytext); return RESTRICT; }
+"#include"  { yylval.str = strdup(yytext); return INCLUDE; }
+"#define"   { yylval.str = strdup(yytext); return DEFINE; }
+"#ifdef"    { yylval.str = strdup(yytext); return IFDEF; }
+"#ifndef"   { yylval.str = strdup(yytext); return IFNDEF; }
+"#endif"    { yylval.str = strdup(yytext); return ENDIF; }
 "="         { return '='; }
 ";"         { return ';'; }
+"+"         { return '+'; }
+"-"         { return '-'; }
+","         { return ','; }
 "("         { return '('; }
 ")"         { return ')'; }
 "{"         { return '{'; }
 "}"         { return '}'; }
-"+"         { return '+'; }
-"-"         { return '-'; }
+"["         { return '['; }
+"]"         { return ']'; }
+"<"         { return '<'; }
+">"         { return '>'; }
+"#"         { return '#'; }
+"$"         { return '$'; }
+"%"         { return '%'; }
+"^"         { return '^'; }
+"\""        { return '"'; }
+"'"         { return '\'';}
+"/"         { return '/'; }
+"~"         { return '~'; }
+"_"         { return '_'; }
+":"         { return ':'; }
+"&"         { yylval.str = strdup(yytext); return REFERENCE; }
+"*"         { yylval.str = strdup(yytext); return POINTER; }
+"::"        { yylval.str = strdup(yytext); return SCOPE_RESOLUTION; }
+"."         { yylval.str = strdup(yytext); return DIRECT_MEMBER_SELECT; }
+"->"        { yylval.str = strdup(yytext); return INDIRECT_MEMBER_SELECT; }
+".*"        { yylval.str = strdup(yytext); return INDIRECT_TO_POINTER; }
+"->*"       { yylval.str = strdup(yytext); return DIRECT_TO_POINTER; }
+"!"         { yylval.str = strdup(yytext); return LOGICAL_NOT; }
+"=="        { yylval.str = strdup(yytext); return EQUALS; }
+"&&"        { yylval.str = strdup(yytext); return LOGICAL_AND; }
+"||"        { yylval.str = strdup(yytext); return LOGICAL_OR; }
+"<<"        { yylval.str = strdup(yytext); return LSHIFT_OPERATOR; }
+">>"        { yylval.str = strdup(yytext); return RSHIFT_OPERATOR; }
+"++"        { yylval.str = strdup(yytext); return INCREMENT_OPERATOR; }
+"--"        { yylval.str = strdup(yytext); return DECREMENT_OPERATOR; }
+"+="        { yylval.str = strdup(yytext); return ADD_ASSIGN_OPERATOR; }
+"-="        { yylval.str = strdup(yytext); return SUB_ASSIGN_OPERATOR; }
+"*="        { yylval.str = strdup(yytext); return MULT_ASSIGN_OPERATOR; }
+"/="        { yylval.str = strdup(yytext); return DIV_ASSIGN_OPERATOR; }
+"&="        { yylval.str = strdup(yytext); return BITAND_ASSIGN_OPERATOR; }
+"%="        { yylval.str = strdup(yytext); return MOD_ASSIGN_OPERATOR; }
+"|="        { yylval.str = strdup(yytext); return BITOR_ASSIGN_OPERATOR; }
+"^="        { yylval.str = strdup(yytext); return BITXOR_ASSIGN_OPERATOR; }
+"~="        { yylval.str = strdup(yytext); return BITNOT_ASSIGN_OPERATOR; }
+"<<="       { yylval.str = strdup(yytext); return LSHIFT_ASSIGN_OPERATOR; }
+">>="       { yylval.str = strdup(yytext); return RSHIFT_ASSIGN_OPERATOR; }
+{escape}    { yylval.str = strdup(yytext); return ESCAPE; }
+__{id}      { yylval.str = strdup(yytext); return ARG; }
+{id}        { yylval.str = strdup(yytext); return ID; }
+{digit}+    { yylval.str = strdup(yytext); return NUMBER; }
 [ \t\n]+    ; // Skip whitespace
+<<EOF>>     { return END_OF_FILE; }
 .           { printf("Unexpected character: %s\n", yytext); }
 
 %%
 
-int yywrap(void) { return 1; }
-
-/*
-int main()
+int yywrap(void)
 {
-    while (yylex() != 0) ;
-    return 0;
+    return 1;
 }
-
-
-int main(int argc, char** argv)
-{
-    if(argc > 1)
-    {
-        if(!(yyin = fopen(argv[1], "r")))
-        {
-            perror(argv[1]);
-            return (1);
-        }
-    }
-    yylex();
-    return 0;
-}
-*/
 
 int main(int argc, char* argv[])
 {
-    // #ifdef DEBUG
     // skip exe path ...
    argc--; argv++;
    if (argc > 0)
@@ -78,7 +139,5 @@ int main(int argc, char* argv[])
     }
 
     yyparse();
-    // #endif
-
     return 0;
 }

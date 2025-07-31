@@ -104,6 +104,7 @@ __{id}      { yylval.str = strdup(yytext); return ARG; }
 {id}        { yylval.str = strdup(yytext); return ID; }
 {digit}+    { yylval.str = strdup(yytext); return NUMBER; }
 [ \t\n]+    ; // Skip whitespace
+<<EOF>>     { return END_OF_FILE; }
 .           { printf("Unexpected character: %s\n", yytext); }
 
 %%

@@ -30,7 +30,8 @@ else
 	LDFLAGS += -lfmt -lcppunit
 endif
 
-all: $(BLD)/fmt $(BLD)/reflexer.yy.cpp $(BLD)/parser.tab.cpp # $(BLD)/parser
+all: $(BLD)/fmt $(BLD)/parser
+ # $(BLD)/parser
 
 rebuild: clean all
 
@@ -47,7 +48,7 @@ $(BLD)/reflexer.yy.cpp: $(SRC)/reflexer.ll
 	reflex --flex -o $(BLD)/reflexer.yy.cpp $(SRC)/reflexer.ll
 
 $(BLD)/parser.tab.cpp: $(SRC)/parser.yy
-	$(BISON) $(BISONFLAGS) $(SRC)/parser.yy -o $(BLD)/parser.tab.cpp
+	$(BISON) $(BISONFLAGS) -LC++ $(SRC)/parser.yy -o $(BLD)/parser.tab.cpp
 
 $(BLD)/parser.tab.c: $(SRC)/parser.y
 	$(BISON) $(BISONFLAGS) $(SRC)/parser.y -o $(BLD)/parser.tab.c
