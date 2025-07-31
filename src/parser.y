@@ -39,6 +39,7 @@ void yyerror(const char *msg);
 %token <str> ADD_ASSIGN_OPERATOR SUB_ASSIGN_OPERATOR MULT_ASSIGN_OPERATOR DIV_ASSIGN_OPERATOR MOD_ASSIGN_OPERATOR
 %token <str> BITAND_ASSIGN_OPERATOR BITOR_ASSIGN_OPERATOR BITXOR_ASSIGN_OPERATOR BITNOT_ASSIGN_OPERATOR
 %token <str> LSHIFT_ASSIGN_OPERATOR RSHIFT_ASSIGN_OPERATOR
+%token <str> SIZEOF DELETE CONST_CAST DYNAMIC_CAST STATIC_CAST REINTERPRET_CAST
 %type <str> files
 %type <str> file
 %type <str> function
@@ -148,10 +149,8 @@ type:
     | VOID                              { printf("type: VOID\n"); }
     | type REFERENCE                    { printf("type: type REFERENCE\n"); }
     | type POINTER                      { printf("type: type POINTER\n"); }
-    | CLASS
-    | STRUCT
-    | TEMPLATE
-    | TYPENAME
+    | CLASS                             { printf("type: CLASS\n"); }
+    | STRUCT                            { printf("type: STRUCT\n"); }
     ;
 flow_control:
     FOR
@@ -223,6 +222,14 @@ operator:
     | BITNOT_ASSIGN_OPERATOR
     | LSHIFT_ASSIGN_OPERATOR
     | RSHIFT_ASSIGN_OPERATOR
+    | TEMPLATE                          { printf("type: type TEMPLATE\n"); }
+    | TYPENAME                          { printf("type: type TYPENAME\n"); }
+    | SIZEOF
+    | DELETE
+    | STATIC_CAST
+    | CONST_CAST
+    | DYNAMIC_CAST
+    | REINTERPRET_CAST
     ;
 member_select:
     DIRECT_MEMBER_SELECT
@@ -233,16 +240,16 @@ pointer_to_member:
     | DIRECT_TO_POINTER
     ;
 scope_resolution:
-    USING
-    | NAMESPACE
+    USING                       { printf("scope_resolution: USING\n"); }
+    | NAMESPACE                 { printf("scope_resolution: NAMESPACE\n"); }
     ;
 preprocess:
-    INCLUDE
-    | DEFINE
-    | IFDEF
-    | IFNDEF
-    | ENDIF
-    | PRAGMA
+    INCLUDE                     { printf("preprocess: include\n"); }
+    | DEFINE                    { printf("preprocess: DEFINE\n"); }
+    | IFDEF                     { printf("preprocess: IFDEF\n"); }
+    | IFNDEF                    { printf("preprocess: IFNDEF\n"); }
+    | ENDIF                     { printf("preprocess: ENDIF\n"); }
+    | PRAGMA                    { printf("preprocess: PRAGMA\n"); }
     ;
 %%
 
