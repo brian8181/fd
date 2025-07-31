@@ -140,7 +140,7 @@ type_modifier:
     | MUTABLE                           { printf("type_modifier: MUTABLE\n"); }
     | REGISTER                          { printf("type_modifier: REGISTER\n"); }
     | RESTRICT                          { printf("type_modifier: RESTRICT\n"); }
-    | INLINE
+    | INLINE                            { printf("type_modifier: INLINE\n"); }
     ;
 type:
     INT                                 { printf("type: INT\n"); }
@@ -153,91 +153,91 @@ type:
     | STRUCT                            { printf("type: STRUCT\n"); }
     ;
 flow_control:
-    FOR
-    | WHILE
-    | DO
-    | BREAK
-    | CONTINUE
-    | IF
-    | ELSE
-    | SWITCH
-    | CASE
-    | GOTO
-    | DEFAULT
-    | RETURN
+    FOR                                  { printf("flow_control: FOR\n"); }
+    | WHILE                              { printf("flow_control: WHILE\n"); }
+    | DO                                 { printf("flow_control: DO\n"); }
+    | BREAK                              { printf("flow_control: BREAK\n"); }
+    | CONTINUE                           { printf("flow_control: CONTINUE\n"); }
+    | IF                                 { printf("flow_control: IF\n"); }
+    | ELSE                               { printf("flow_control: ELSE\n"); }
+    | SWITCH                             { printf("flow_control: SWITCH\n"); }
+    | CASE                               { printf("flow_control: CASE\n"); }
+    | GOTO                               { printf("flow_control: GOTO\n"); }
+    | DEFAULT                            { printf("flow_control: DEFAULT\n"); }
+    | RETURN                             { printf("flow_control: RETURN\n"); }
     ;
 space:
-    SPACE
-    | TAB
-    | NEWLINE
-    | END_OF_FILE
+    SPACE                               { printf("space:\n"); }
+    | TAB                               { printf("space:\n"); }
+    | NEWLINE                           { printf("space:\n"); }
+    | END_OF_FILE                       { printf("space:\n"); }
     ;
 operator:
-    ASSIGNMENT
-    | ADDITION
-    | SUBTRACTION
-    | MUTIPLICATION
-    | DIVISION
-    | LESS_THAN
-    | EQUALS
-    | GREATER_THAN
-    | BIT_AND
-    | BIT_OR
-    | BIT_XOR
-    | BIT_NOT
-    | LOGICAL_NOT
-    | LOGICAL_AND
-    | LOGICAL_OR
-    | SHIFT_LEFT
-    | SHIFT_RIGHT
-    | MODULUS
-    | LEFT_BRACE
-    | LEFT_CURLY
-    | LEFT_PAREN
-    | RIGHT_BRACE
-    | RIGHT_CURLY
-    | RIGHT_PAREN
-    | COMMA
-    | COLON
-    | SEMICOLON
-    | DOUBLE_QUOTE
-    | SINGLE_QUOTE
-    | QUESTION_MARK
-    | DOT
-    | AT_SYMBOL
-    | ADDRESS_OF
-    | SCOPE_RESOLUTION
-    | LSHIFT_OPERATOR
-    | RSHIFT_OPERATOR
-    | INCREMENT_OPERATOR
-    | DECREMENT_OPERATOR
-    | ADD_ASSIGN_OPERATOR
-    | SUB_ASSIGN_OPERATOR
-    | MULT_ASSIGN_OPERATOR
-    | DIV_ASSIGN_OPERATOR
-    | MOD_ASSIGN_OPERATOR
-    | BITAND_ASSIGN_OPERATOR
-    | BITOR_ASSIGN_OPERATOR
-    | BITXOR_ASSIGN_OPERATOR
-    | BITNOT_ASSIGN_OPERATOR
-    | LSHIFT_ASSIGN_OPERATOR
-    | RSHIFT_ASSIGN_OPERATOR
-    | TEMPLATE                          { printf("type: type TEMPLATE\n"); }
-    | TYPENAME                          { printf("type: type TYPENAME\n"); }
-    | SIZEOF
-    | DELETE
-    | STATIC_CAST
-    | CONST_CAST
-    | DYNAMIC_CAST
-    | REINTERPRET_CAST
+    ASSIGNMENT                          { printf("operator:\n"); }
+    | ADDITION                          { printf("operator:\n"); }
+    | SUBTRACTION                       { printf("operator:\n"); }
+    | MUTIPLICATION                     { printf("operator:\n"); }
+    | DIVISION                          { printf("operator:\n"); }
+    | LESS_THAN                         { printf("operator:\n"); }
+    | EQUALS                            { printf("operator:\n"); }
+    | GREATER_THAN                      { printf("operator:\n"); }
+    | BIT_AND                           { printf("operator:\n"); }
+    | BIT_OR                            { printf("operator:\n"); }
+    | BIT_XOR                           { printf("operator:\n"); }
+    | BIT_NOT                           { printf("operator:\n"); }
+    | LOGICAL_NOT                       { printf("operator:\n"); }
+    | LOGICAL_AND                       { printf("operator:\n"); }
+    | LOGICAL_OR                        { printf("operator:\n"); }
+    | SHIFT_LEFT                        { printf("operator:\n"); }
+    | SHIFT_RIGHT                       { printf("operator:\n"); }
+    | MODULUS                           { printf("operator:\n"); }
+    | LEFT_BRACE                        { printf("operator:\n"); }
+    | LEFT_CURLY                        { printf("operator:\n"); }
+    | LEFT_PAREN                        { printf("operator:\n"); }
+    | RIGHT_BRACE                       { printf("operator:\n"); }
+    | RIGHT_CURLY                       { printf("operator:\n"); }
+    | RIGHT_PAREN                       { printf("operator:\n"); }
+    | COMMA                             { printf("operator:\n"); }
+    | COLON                             { printf("operator:\n"); }
+    | SEMICOLON                         { printf("operator:\n"); }
+    | DOUBLE_QUOTE                      { printf("operator:\n"); }
+    | SINGLE_QUOTE                      { printf("operator:\n"); }
+    | QUESTION_MARK                     { printf("operator:\n"); }
+    | DOT                               { printf("operator:\n"); }
+    | AT_SYMBOL                         { printf("operator:\n"); }
+    | ADDRESS_OF                        { printf("operator:\n"); }
+    | SCOPE_RESOLUTION                  { printf("operator:\n"); }
+    | LSHIFT_OPERATOR                   { printf("operator:\n"); }
+    | RSHIFT_OPERATOR                   { printf("operator:\n"); }
+    | INCREMENT_OPERATOR                { printf("operator:\n"); }
+    | DECREMENT_OPERATOR                { printf("operator:\n"); }
+    | ADD_ASSIGN_OPERATOR               { printf("operator:\n"); }
+    | SUB_ASSIGN_OPERATOR               { printf("operator:\n"); }
+    | MULT_ASSIGN_OPERATOR              { printf("operator:\n"); }
+    | DIV_ASSIGN_OPERATOR               { printf("operator:\n"); }
+    | MOD_ASSIGN_OPERATOR               { printf("operator:\n"); }
+    | BITAND_ASSIGN_OPERATOR            { printf("operator:\n"); }
+    | BITOR_ASSIGN_OPERATOR             { printf("operator:\n"); }
+    | BITXOR_ASSIGN_OPERATOR            { printf("operator:\n"); }
+    | BITNOT_ASSIGN_OPERATOR            { printf("operator:\n"); }
+    | LSHIFT_ASSIGN_OPERATOR            { printf("operator:\n"); }
+    | RSHIFT_ASSIGN_OPERATOR            { printf("operator:\n"); }
+    | TEMPLATE                          { printf("operator: TEMPLATE\n"); }
+    | TYPENAME                          { printf("operator: TYPENAME\n"); }
+    | SIZEOF                            { printf("operator:\n"); }
+    | DELETE                            { printf("operator:\n"); }
+    | STATIC_CAST                       { printf("operator:\n"); }
+    | CONST_CAST                        { printf("operator:\n"); }
+    | DYNAMIC_CAST                      { printf("operator:\n"); }
+    | REINTERPRET_CAST                  { printf("operator:\n"); }
     ;
 member_select:
-    DIRECT_MEMBER_SELECT
-    | INDIRECT_MEMBER_SELECT
+    DIRECT_MEMBER_SELECT                { printf("member_select: DIRECT_MEMBER_SELECT\n"); }
+    | INDIRECT_MEMBER_SELECT            { printf("member_select: INDIRECT_MEMBER_SELECT\n"); }
     ;
 pointer_to_member:
-    INDIRECT_TO_POINTER
-    | DIRECT_TO_POINTER
+    INDIRECT_TO_POINTER                  { printf("pointer_to_member: INDIRECT_TO_POINTER\n"); }
+    | DIRECT_TO_POINTER                  { printf("pointer_to_member: DIRECT_TO_POINTER\n"); }
     ;
 scope_resolution:
     USING                       { printf("scope_resolution: USING\n"); }
