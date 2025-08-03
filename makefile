@@ -34,23 +34,29 @@ all: $(BLD)/fd # $(BLD)/parser
 
 rebuild: clean all
 
+# C with Flex
 $(BLD)/fd: $(BLD)/lexer.yy.c $(BLD)/parser.tab.c
 	 $(CC) $(CCFLAGS) $(BLD)/parser.tab.c $(BLD)/lexer.yy.c -o $(BLD)/fd
 
+# CPP with Re-Flex
 $(BLD)/parser: $(BLD)/reflexer.yy.cpp $(BLD)/parser.tab.cpp
 	 $(CXX) $(CXXFLAGS) $(BLD)/parser.tab.cpp $(BLD)/reflexer.yy.cpp -o $(BLD)/parser
 
+# C with Flex
 $(BLD)/lexer.yy.c: $(SRC)/lexer.l
 	$(LEX) -o $(BLD)/lexer.yy.c $(SRC)/lexer.l
 
+# CPP with Re-Flex
 $(BLD)/reflexer.yy.cpp: $(SRC)/reflexer.ll
 	reflex --flex -o $(BLD)/reflexer.yy.cpp $(SRC)/reflexer.ll
 
-$(BLD)/parser.tab.cpp: $(SRC)/parser.yy
-	$(BISON) $(BISONFLAGS) -LC++ $(SRC)/parser.yy -o $(BLD)/parser.tab.cpp
-
+# C with Bison
 $(BLD)/parser.tab.c: $(SRC)/parser.y
 	$(BISON) $(BISONFLAGS) $(SRC)/parser.y -o $(BLD)/parser.tab.c
+
+# CPP with Bison
+$(BLD)/parser.tab.cpp: $(SRC)/parser.yy
+	$(BISON) $(BISONFLAGS) -LC++ $(SRC)/parser.yy -o $(BLD)/parser.tab.cpp
 
 $(OBJ)/%.o: $(SRC)/%.c
 	$(CC) $(CCFLAGS) -c -o $@ $<

@@ -36,10 +36,10 @@ void yyerror(const char *msg);
 %token <str> DIRECT_TO_POINTER INDIRECT_TO_POINTER
 %token <str> DIRECT_MEMBER_SELECT INDIRECT_MEMBER_SELECT
 %token <str> IF ELSE FOR DO WHILE CONTINUE BREAK SWITCH CASE GOTO DEFAULT RETURN
-%token <str> LSHIFT_OPERATOR RSHIFT_OPERATOR INCREMENT_OPERATOR DECREMENT_OPERATOR
-%token <str> ADD_ASSIGN_OPERATOR SUB_ASSIGN_OPERATOR MULT_ASSIGN_OPERATOR DIV_ASSIGN_OPERATOR MOD_ASSIGN_OPERATOR
-%token <str> BITAND_ASSIGN_OPERATOR BITOR_ASSIGN_OPERATOR BITXOR_ASSIGN_OPERATOR BITNOT_ASSIGN_OPERATOR
-%token <str> LSHIFT_ASSIGN_OPERATOR RSHIFT_ASSIGN_OPERATOR
+%token <str> LSHIFT RSHIFT INCREMENT DECREMENT
+%token <str> ADD_ASSIGN SUB_ASSIGN MULT_ASSIGN DIV_ASSIGN MOD_ASSIGN
+%token <str> BIT_AND_ASSIGN BIT_OR_ASSIGN BIT_XOR_ASSIGN BIT_NOT_ASSIGN
+%token <str> LSHIFT_ASSIGN RSHIFT_ASSIGN
 %token <str> SIZEOF DELETE CONST_CAST DYNAMIC_CAST STATIC_CAST REINTERPRET_CAST
 %type <str> files
 %type <str> file
@@ -65,14 +65,17 @@ void yyerror(const char *msg);
 %%
 
 program:
-    files                               { printf("program: files\n"); }
+    files                               {
+                                            printf("program: files\n");
+                                            exit(0);
+                                        }
     ;
 files:
-    file END_OF_FILE                    { printf("files: END_OF_FILE\n"); }
+    file
     | files file                        { printf("files: files file\n"); }
     ;
 file:
-    scopes                              { printf("file: scopes\n"); }
+    scopes END_OF_FILE                  { printf("file: scopes END_OF_FILE\n"); }
     ;
 scopes:
     scope                               { printf("scopes: scope\n"); }
@@ -154,18 +157,18 @@ type:
     | STRUCT                            { printf("type: STRUCT\n"); }
     ;
 flow_control:
-    FOR                                  { printf("flow_control: FOR\n"); }
-    | WHILE                              { printf("flow_control: WHILE\n"); }
-    | DO                                 { printf("flow_control: DO\n"); }
-    | BREAK                              { printf("flow_control: BREAK\n"); }
-    | CONTINUE                           { printf("flow_control: CONTINUE\n"); }
-    | IF                                 { printf("flow_control: IF\n"); }
-    | ELSE                               { printf("flow_control: ELSE\n"); }
-    | SWITCH                             { printf("flow_control: SWITCH\n"); }
-    | CASE                               { printf("flow_control: CASE\n"); }
-    | GOTO                               { printf("flow_control: GOTO\n"); }
-    | DEFAULT                            { printf("flow_control: DEFAULT\n"); }
-    | RETURN                             { printf("flow_control: RETURN\n"); }
+    FOR                                 { printf("flow_control: FOR\n"); }
+    | WHILE                             { printf("flow_control: WHILE\n"); }
+    | DO                                { printf("flow_control: DO\n"); }
+    | BREAK                             { printf("flow_control: BREAK\n"); }
+    | CONTINUE                          { printf("flow_control: CONTINUE\n"); }
+    | IF                                { printf("flow_control: IF\n"); }
+    | ELSE                              { printf("flow_control: ELSE\n"); }
+    | SWITCH                            { printf("flow_control: SWITCH\n"); }
+    | CASE                              { printf("flow_control: CASE\n"); }
+    | GOTO                              { printf("flow_control: GOTO\n"); }
+    | DEFAULT                           { printf("flow_control: DEFAULT\n"); }
+    | RETURN                            { printf("flow_control: RETURN\n"); }
     ;
 space:
     SPACE                               { printf("space:\n"); }
@@ -208,21 +211,21 @@ operator:
     | AT_SYMBOL                         { printf("operator:\n"); }
     | ADDRESS_OF                        { printf("operator:\n"); }
     | SCOPE_RESOLUTION                  { printf("operator:\n"); }
-    | LSHIFT_OPERATOR                   { printf("operator:\n"); }
-    | RSHIFT_OPERATOR                   { printf("operator:\n"); }
-    | INCREMENT_OPERATOR                { printf("operator:\n"); }
-    | DECREMENT_OPERATOR                { printf("operator:\n"); }
-    | ADD_ASSIGN_OPERATOR               { printf("operator:\n"); }
-    | SUB_ASSIGN_OPERATOR               { printf("operator:\n"); }
-    | MULT_ASSIGN_OPERATOR              { printf("operator:\n"); }
-    | DIV_ASSIGN_OPERATOR               { printf("operator:\n"); }
-    | MOD_ASSIGN_OPERATOR               { printf("operator:\n"); }
-    | BITAND_ASSIGN_OPERATOR            { printf("operator:\n"); }
-    | BITOR_ASSIGN_OPERATOR             { printf("operator:\n"); }
-    | BITXOR_ASSIGN_OPERATOR            { printf("operator:\n"); }
-    | BITNOT_ASSIGN_OPERATOR            { printf("operator:\n"); }
-    | LSHIFT_ASSIGN_OPERATOR            { printf("operator:\n"); }
-    | RSHIFT_ASSIGN_OPERATOR            { printf("operator:\n"); }
+    | LSHIFT                            { printf("operator:\n"); }
+    | RSHIFT                            { printf("operator:\n"); }
+    | INCREMENT                         { printf("operator:\n"); }
+    | DECREMENT                         { printf("operator:\n"); }
+    | ADD_ASSIGN                        { printf("operator:\n"); }
+    | SUB_ASSIGN                        { printf("operator:\n"); }
+    | MULT_ASSIGN                       { printf("operator:\n"); }
+    | DIV_ASSIGN                        { printf("operator:\n"); }
+    | MOD_ASSIGN                        { printf("operator:\n"); }
+    | BIT_AND_ASSIGN                    { printf("operator:\n"); }
+    | BIT_OR_ASSIGN                     { printf("operator:\n"); }
+    | BIT_XOR_ASSIGN                    { printf("operator:\n"); }
+    | BIT_NOT_ASSIGN                    { printf("operator:\n"); }
+    | LSHIFT_ASSIGN                     { printf("operator:\n"); }
+    | RSHIFT_ASSIGN                     { printf("operator:\n"); }
     | TEMPLATE                          { printf("operator: TEMPLATE\n"); }
     | TYPENAME                          { printf("operator: TYPENAME\n"); }
     | SIZEOF                            { printf("operator:\n"); }
@@ -237,20 +240,20 @@ member_select:
     | INDIRECT_MEMBER_SELECT            { printf("member_select: INDIRECT_MEMBER_SELECT\n"); }
     ;
 pointer_to_member:
-    INDIRECT_TO_POINTER                  { printf("pointer_to_member: INDIRECT_TO_POINTER\n"); }
-    | DIRECT_TO_POINTER                  { printf("pointer_to_member: DIRECT_TO_POINTER\n"); }
+    INDIRECT_TO_POINTER                 { printf("pointer_to_member: INDIRECT_TO_POINTER\n"); }
+    | DIRECT_TO_POINTER                 { printf("pointer_to_member: DIRECT_TO_POINTER\n"); }
     ;
 scope_resolution:
-    USING                       { printf("scope_resolution: USING\n"); }
-    | NAMESPACE                 { printf("scope_resolution: NAMESPACE\n"); }
+    USING                               { printf("scope_resolution: USING\n"); }
+    | NAMESPACE                         { printf("scope_resolution: NAMESPACE\n"); }
     ;
 preprocess:
-    INCLUDE                     { printf("preprocess: include\n"); }
-    | DEFINE                    { printf("preprocess: DEFINE\n"); }
-    | IFDEF                     { printf("preprocess: IFDEF\n"); }
-    | IFNDEF                    { printf("preprocess: IFNDEF\n"); }
-    | ENDIF                     { printf("preprocess: ENDIF\n"); }
-    | PRAGMA                    { printf("preprocess: PRAGMA\n"); }
+    INCLUDE                             { printf("preprocess: include\n"); }
+    | DEFINE                            { printf("preprocess: DEFINE\n"); }
+    | IFDEF                             { printf("preprocess: IFDEF\n"); }
+    | IFNDEF                            { printf("preprocess: IFNDEF\n"); }
+    | ENDIF                             { printf("preprocess: ENDIF\n"); }
+    | PRAGMA                            { printf("preprocess: PRAGMA\n"); }
     | ESCAPE
     ;
 %%

@@ -12,43 +12,43 @@ point   '*'
 
 %%
 
-"int"       { return INT; }
-"float"     { return FLOAT; }
-"char"      { return CHAR; }
-"return"    { return RETURN; }
-"if"        { return IF; }
-"else"      { return ELSE; }
-"do"        { return DO; }
-"while"     { return WHILE; }
-"for"       { return FOR; }
-"continue"  { return CONTINUE; }
-"switch"    { return SWITCH; }
-"case"      { return CASE; }
-"break"     { return BREAK; }
-"goto"      { return GOTO; }
-"default"   { return DEFAULT; }
-"void"      { return VOID; }
-"private"   { return PRIVATE; }
-"static"    { return STATIC; }
-"const"     { return CONST; }
-"UNSIGNED"  { return UNSIGNED; }
-"volatile"  { return VOLATILE; }
-"register"  { return REGISTER; }
-"="         { return '='; }
-";"         { return ';'; }
-"("         { return '('; }
-")"         { return ')'; }
-"{"         { return '{'; }
-"}"         { return '}'; }
-"+"         { return '+'; }
-"-"         { return '-'; }
-","         { return ','; }
-"["         { return '['; }
-"]"         { return ']'; }
-"::"        { return SCOPE_RESOLUTION; }
-":"         { return ':'; }
-"&"         { return REFERENCE; }
-"*"         { return POINTER; }
+"int"       { ECHO; return INT; }
+"float"     { ECHO; return FLOAT; }
+"char"      { ECHO; return CHAR; }
+"return"    { ECHO; return RETURN; }
+"if"        { ECHO; return IF; }
+"else"      { ECHO; return ELSE; }
+"do"        { ECHO; return DO; }
+"while"     { ECHO; return WHILE; }
+"for"       { ECHO; return FOR; }
+"continue"  { ECHO; return CONTINUE; }
+"switch"    { ECHO; return SWITCH; }
+"case"      { ECHO; return CASE; }
+"break"     { ECHO; return BREAK; }
+"goto"      { ECHO; return GOTO; }
+"default"   { ECHO; return DEFAULT; }
+"void"      { ECHO; return VOID; }
+"private"   { ECHO; return PRIVATE; }
+"static"    { ECHO; return STATIC; }
+"const"     { ECHO; return CONST; }
+"UNSIGNED"  { ECHO; return UNSIGNED; }
+"volatile"  { ECHO; return VOLATILE; }
+"register"  { ECHO; return REGISTER; }
+"="         { ECHO; return '='; }
+";"         { ECHO; return ';'; }
+"("         { ECHO; return '('; }
+")"         { ECHO; return ')'; }
+"{"         { ECHO; return '{'; }
+"}"         { ECHO; return '}'; }
+"+"         { ECHO; return '+'; }
+"-"         { ECHO; return '-'; }
+","         { ECHO; return ','; }
+"["         { ECHO; return '['; }
+"]"         { ECHO; return ']'; }
+"::"        { ECHO; return SCOPE_RESOLUTION; }
+":"         { ECHO; return ':'; }
+"&"         { ECHO; return REFERENCE; }
+"*"         { ECHO; return POINTER; }
 __{id}      { yylval.str = strdup(yytext); return ARG; }
 {id}        { yylval.str = strdup(yytext); return ID; }
 {digit}+    { yylval.str = strdup(yytext); return NUMBER; }
