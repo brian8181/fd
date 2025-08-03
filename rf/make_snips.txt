@@ -1,0 +1,18 @@
+%option bison-complete
+%option bison-cc-namespace=yy
+%option bison-cc-parser=parser
+%option bison-locations
+%option reentrant
+
+/* throw an exception in the scanner's default rule */
+%option exception="yy::parser::syntax_error(location(), \"Unknown token.\")"
+
+%option tabs=8
+
+%option namespace=yy
+%option lexer=scanner
+%option outfile=scanner.cpp
+%option header-file=scanner.hpp
+
+%option fast
+%option flex

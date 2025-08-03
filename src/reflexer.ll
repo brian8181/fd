@@ -115,7 +115,18 @@ int yywrap(void)
     return 1;
 }
 
-int main(int argc, char* argv[])
+
+#include "reflexer.yy.cpp"
+
+/* int main(int argc, char* argv[]) {
+    ExampleLexer lexer(std::cin);
+    while (lexer.lex() != 0) {
+        // lex() already handles output per rules
+    }
+    return 0;
+} */
+
+/* int main(int argc, char* argv[])
 {
     // skip exe path ...
    argc--; argv++;
@@ -140,4 +151,4 @@ int main(int argc, char* argv[])
 
     yyparse();
     return 0;
-}
+} */

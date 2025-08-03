@@ -64,14 +64,17 @@ void yyerror(const char *msg);
 %%
 
 program:
-    files                               { printf("program: files\n"); }
+    files                               {
+                                            printf("program: files\n");
+                                            exit(0);
+                                        }
     ;
 files:
-    file END_OF_FILE                    { printf("files: END_OF_FILE\n"); }
+    file
     | files file                        { printf("files: files file\n"); }
     ;
 file:
-    scopes                              { printf("file: scopes\n"); }
+    scopes END_OF_FILE                  { printf("file: scopes END_OF_FILE\n"); }
     ;
 scopes:
     scope                               { printf("scopes: scope\n"); }

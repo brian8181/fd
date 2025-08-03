@@ -30,13 +30,12 @@ else
 	LDFLAGS += -lfmt -lcppunit
 endif
 
-all: $(BLD)/fmt $(BLD)/parser
- # $(BLD)/parser
+all: $(BLD)/fd # $(BLD)/parser
 
 rebuild: clean all
 
-$(BLD)/fmt: $(BLD)/lexer.yy.c $(BLD)/parser.tab.c
-	 $(CC) $(CCFLAGS) $(BLD)/parser.tab.c $(BLD)/lexer.yy.c -o $(BLD)/fmt
+$(BLD)/fd: $(BLD)/lexer.yy.c $(BLD)/parser.tab.c
+	 $(CC) $(CCFLAGS) $(BLD)/parser.tab.c $(BLD)/lexer.yy.c -o $(BLD)/fd
 
 $(BLD)/parser: $(BLD)/reflexer.yy.cpp $(BLD)/parser.tab.cpp
 	 $(CXX) $(CXXFLAGS) $(BLD)/parser.tab.cpp $(BLD)/reflexer.yy.cpp -o $(BLD)/parser
